@@ -6,10 +6,8 @@ import { PlaylistModule } from './playlist/playlist.module';
 import { AudioModule } from './audio/audio.module';
 import { AuthModule } from './auth/auth.module';
 import { User } from "./user/user.model";
-import { AuthorModule } from './author/author.module';
 import { Playlist } from "./playlist/playlist.model";
 import { Audio } from "./audio/audio.model";
-import { Author } from "./author/author.model";
 import { PlaylistAudios } from "./playlist/playlist-audios.model";
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from "@nestjs/serve-static";
@@ -30,14 +28,13 @@ import * as path from "path";
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [User, Playlist, Author, Audio, PlaylistAudios],
+      models: [User, Playlist, Audio, PlaylistAudios],
       autoLoadModels: true
     }),
     UserModule,
     PlaylistModule,
     AudioModule,
     AuthModule,
-    AuthorModule,
     FilesModule
   ],
   controllers: [],

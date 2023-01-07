@@ -1,11 +1,9 @@
-import { Author } from "../author/author.model";
-
 export class CreateAudioDto {
   readonly name: string;
-  readonly authorId: number;
+  readonly author: string;
 }
 
 export class UpdateAudioDto {
   readonly name?: string;
-  readonly authorId?: number;
+  readonly author: string;
 }

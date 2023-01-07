@@ -1,5 +1,4 @@
 import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
-import { Author } from "../author/author.model";
 import { User } from "../user/user.model";
 import { Playlist } from "../playlist/playlist.model";
 import { PlaylistAudios } from "../playlist/playlist-audios.model";
@@ -20,12 +19,8 @@ export class Audio extends Model<Audio, IAudioCreationAttributes> {
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   name: string;
 
-  @ForeignKey(() => Author)
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  authorId: number;
-
-  @BelongsTo(() => Author)
-  author: Author;
+  @Column({type: DataType.STRING, allowNull: false })
+  author: string;
 
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   audioPath: string;

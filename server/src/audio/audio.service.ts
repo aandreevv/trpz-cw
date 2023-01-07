@@ -32,7 +32,7 @@ export class AudioService {
   async updateOneAudio(dto: AudioDto.UpdateAudioDto, id: number, userId: number): Promise<Audio> {
     const audio = await this.audioRepository.findOne({where: {id, userId}});
     audio.name = dto.name || audio.name;
-    audio.authorId = dto.authorId || audio.authorId;
+    audio.author = dto.author || audio.author;
     await audio.save();
     return audio;
   }
