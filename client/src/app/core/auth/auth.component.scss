@@ -1,0 +1,76 @@
+@import "../../../variables";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+
+  .authentication {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 1em $mainColor;
+    width: 40em;
+    position: relative;
+    background-color: $secondaryBgBlack;
+
+    .block-head {
+      background-color: $mainColor;
+      width: 12em;
+      color: #ffffff;
+      position: absolute;
+      top: -2em;
+      left: 3em;
+
+      h2 {
+        padding: 0 0 0 0.2em;
+        font-size: 2em;
+        margin: 0.25em;
+      }
+    }
+
+    .content {
+      padding: 3em 3em 1.5em;
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 0.75em;
+
+        &, input {
+          font-size: 1.25em;
+        }
+      }
+    }
+
+    button {
+      padding: 0.5em;
+      color: #ffffff;
+      width: 50%;
+      font-size: 1.5em;
+      border: 0;
+      cursor: pointer;
+      background-color: $mainColor;
+      font-family: Roboto, sans-serif;
+
+      &:nth-of-type(2) {
+        background-color: $secondaryColor;
+      }
+
+      &:disabled {
+        color: #c4c4c4;
+      }
+    }
+
+    .error {
+      padding: 0.5em;
+      background-color: #ffa0a0;
+      border: 0.1em solid #ab4d4d;
+      margin: 0.5em 0;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

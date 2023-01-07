@@ -1,0 +1,50 @@
+@import "src/variables";
+
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: $mainColor;
+  color: #fff;
+  display: flex;
+  padding: 0 16px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  font: 500 20px/32px "Roboto", sans-serif;
+  box-shadow: 0 0 1.5em $mainColor;
+
+  h1 {
+    font-size: 1.25em;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  a {
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 0.2em;
+    padding: 0.1em 0.5em;
+  }
+
+  a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transition: .15s;
+  }
+
+  &__heading, &__authentication {
+    min-width: 30%;
+  }
+
+  &__links {
+    display: flex;
+    justify-content: space-around;
+    min-width: 30%;
+  }
+
+  &__authentication {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
