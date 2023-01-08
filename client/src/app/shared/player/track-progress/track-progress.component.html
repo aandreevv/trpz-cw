@@ -1,0 +1,4 @@
+<div class="bar">
+  <input type="range" #range (change)="changeRange.emit(+range.value)" min="0" max="{{right}}" [value]="left"/>
+  <p *ngIf="showDetails">{{left * 1000 | date: 'mm:ss'}} / {{right * 1000 | date: 'mm:ss'}}</p>
+</div>

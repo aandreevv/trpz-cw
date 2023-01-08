@@ -1,0 +1,54 @@
+<app-heading>
+  <h2>Upload audiotrack</h2>
+  <a routerLink="/audiotracks">Back</a>
+</app-heading>
+<mat-stepper linear>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill info about audiotrack</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Audio name</mat-label>
+        <input matInput placeholder="Name" formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Author name</mat-label>
+        <input matInput placeholder="Author" formControlName="author" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Upload image">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>{{imageFile ? imageFile.name : "Choose your file"}}</mat-label>
+        <input matInput placeholder="Your file" (click)="imageInput.click()" readonly>
+        <input #imageInput type="file" hidden
+               formControlName="image" (change)="onImageSelected($event)" required
+               accept="image/*"
+        />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup" label="Upload audio">
+    <form [formGroup]="thirdFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>{{audioFile ? audioFile.name : "Choose your file"}}</mat-label>
+        <input matInput placeholder="Your file" (click)="audioInput.click()" readonly>
+        <input #audioInput type="file" hidden
+               formControlName="audio" (change)="onAudioSelected($event)" required
+               accept="audio/*"
+        />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext (click)="submitForm()">Submit</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>

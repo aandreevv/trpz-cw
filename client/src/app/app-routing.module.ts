@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', loadChildren: () => import("../app/features/main/main.module").then(m => m.MainModule)},
-  {path: 'auth', loadChildren: () => import("../app/core/core.module").then(m => m.CoreModule)}
+  {path: '', redirectTo: 'audiotracks', pathMatch: "full"},
+  {path: 'auth', loadChildren: () => import("../app/core/core.module").then(m => m.CoreModule)},
+  {path: 'audiotracks', loadChildren: () => import("../app/features/audiotracks/audiotracks.module").then(m => m.AudiotracksModule)},
+  {path: 'playlists', loadChildren: () => import("../app/features/playlists/playlists.module").then(m => m.PlaylistsModule)}
 ];
 
 @NgModule({

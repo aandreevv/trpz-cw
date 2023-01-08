@@ -44,4 +44,8 @@ export class AuthService {
     return this.getToken(user);
   }
 
+  public async getByToken(token: string) {
+    return this.jwtService.verify(token);
+  }
+
 }

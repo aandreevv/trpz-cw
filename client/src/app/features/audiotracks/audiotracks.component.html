@@ -1,0 +1,5 @@
+<app-heading>
+  <h2>Audiotracks</h2>
+  <a routerLink="./create">Upload new</a>
+</app-heading>
+<app-audiotrack *ngFor="let audiotrack of audiotracks;" [audiotrack]="audiotrack"></app-audiotrack>

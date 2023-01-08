@@ -1,0 +1,22 @@
+<div class="container">
+  <button mat-fab (click)="switchPlay()">
+    <mat-icon>{{pause ? "play_arrow" : "pause"}}</mat-icon>
+  </button>
+
+  <div class="audio">
+    <p>{{audiotrack?.name}}</p>
+    <p>{{audiotrack?.author}}</p>
+  </div>
+
+  <div class="track-bar">
+    <app-track-progress [left]="currentMoment" [right]="duration"
+                        (changeRange)="changeCurrent($event)" [showDetails]="true"></app-track-progress>
+  </div>
+
+  <div class="volume">
+    <mat-icon>volume_up</mat-icon>
+    <app-track-progress [left]="this.volume" [right]="100" (changeRange)="changeVolume($event)"></app-track-progress>
+  </div>
+</div>
+
+

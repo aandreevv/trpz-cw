@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="button-wrap">
+    <button mat-icon-button (click)="setActive()">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+  </div>
+  <img src="http://localhost:5000/{{audiotrack.imagePath}}" alt="{{audiotrack.name}}"/>
+  <h3>{{audiotrack.author}} - {{audiotrack.name}}</h3>
+</div>
