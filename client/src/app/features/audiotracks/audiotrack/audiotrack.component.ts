@@ -19,5 +19,6 @@ export class AudiotrackComponent implements OnInit {
 
   setActive() {
     this.store.dispatch(PlayerActions.setAudio({audiotrack: this.audiotrack}));
+    this.store.dispatch(PlayerActions.play());
   }
 }

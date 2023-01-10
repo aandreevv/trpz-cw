@@ -57,6 +57,11 @@ const _playerReducer = createReducer(
       ...state,
       currentMoment: action.currentMoment
     }
+  }),
+  on(PlayerActions.reset, state => {
+    return {
+      ...initialState
+    }
   })
 )
 

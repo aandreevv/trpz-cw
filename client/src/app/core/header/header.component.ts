@@ -4,8 +4,7 @@ import {map, Subscription} from "rxjs";
 import * as App from "../../store/app.reducer";
 import { User } from '../auth/user.model';
 import * as UserActions from "../auth/store/user.actions";
-import {AuthService} from "../auth/auth.service";
-
+import * as PlayerActions from "../../shared/player/store/player.actions";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,7 +15,7 @@ export class HeaderComponent implements OnInit {
   private userSubscription: Subscription;
   public isDropdownOpen: boolean = false;
 
-  constructor(private store: Store<App.AppState>, private service: AuthService) { }
+  constructor(private store: Store<App.AppState>) { }
 
   ngOnInit(): void {
     this.userSubscription = this.store.select('auth').pipe(
@@ -27,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
+    this.store.dispatch(PlayerActions.reset());
     this.store.dispatch(UserActions.logout());
   }
-
 }

@@ -28,3 +28,7 @@ export const setCurrentMoment = createAction(
   "[Player] Set Current Moment",
   props<{currentMoment: number}>()
 );
+
+export const reset = createAction(
+  "[Player] Reset"
+)

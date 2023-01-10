@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import {UserEffects} from "./core/auth/store/user.effects";
 import {AudiotracksEffects} from "./features/audiotracks/store/audiotracks.effects";
 import {SharedModule} from "./shared/shared.module";
+import {PlayerEffects} from "./shared/player/store/player.effects";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import {SharedModule} from "./shared/shared.module";
         HttpClientModule,
         StoreModule,
         StoreModule.forRoot(AppReducer.appReducer),
-        EffectsModule.forRoot([UserEffects, AudiotracksEffects]),
+        EffectsModule.forRoot([UserEffects, AudiotracksEffects, PlayerEffects]),
         StoreDevtoolsModule.instrument({logOnly: environment.production}),
         SharedModule,
     ],
