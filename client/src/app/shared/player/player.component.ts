@@ -8,6 +8,11 @@ import {Actions, ofType} from "@ngrx/effects";
 import * as PlayerActions from "../player/store/player.actions";
 import {Playlist} from "../../features/playlists/playlist.model";
 import {AudiotracksIterator} from "./iterator/audiotracks.iterator";
+import {AudioElement} from "./audio.class";
+import {PlayCommand} from "./command/play.command";
+import {PauseCommand} from "./command/pause.command";
+import {TimeCommand} from "./command/time.command";
+import {VolumeCommand} from "./command/volume.command";
 
 @Component({
   selector: 'app-player',
@@ -17,11 +22,15 @@ import {AudiotracksIterator} from "./iterator/audiotracks.iterator";
 export class PlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   private _apiBase = "http://localhost:5000";
   private activePlaylist: Playlist | null;
-  private audio: HTMLAudioElement;
+  private audio: AudioElement = new AudioElement();
+
+  // subscriptions
   private playerSubscription: Subscription;
   private playlistSubscription: Subscription;
   private audioSubscription: Subscription;
   private repeatSubscription: Subscription;
+
+  // state-variables
   public audiotrack: Audiotrack | null;
   public volume: number;
   public currentMoment: number;
@@ -30,10 +39,21 @@ export class PlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   public audiotracksIterator: AudiotracksIterator | null;
   public repeatTrack: Audiotrack | null;
 
-  ngOnDestroy(): void {
-    this.audioSubscription.unsubscribe();
-    this.playerSubscription.unsubscribe();
-    this.playlistSubscription.unsubscribe();
+  // commands
+
+  constructor(private store: Store<AppState>,
+              private actions$: Actions,
+              private cdr: ChangeDetectorRef) {
+    this.playerSubscription = this.store.select('player').subscribe(state => {
+        this.audiotrack = state.activeTrack;
+        this.volume = state.volume;
+        this.pause = state.pause;
+        this.duration = state.duration;
+        this.currentMoment = state.currentMoment;
+        this.activePlaylist = state.activePlaylist;
+        this.repeatTrack = state.repeat;
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -59,25 +79,13 @@ export class PlayerComponent implements OnInit, OnDestroy, AfterViewInit {
    ).subscribe()
   }
 
-  constructor(private store: Store<AppState>,
-              private actions$: Actions,
-              private cdr: ChangeDetectorRef) {
-    this.playerSubscription = this.store.select('player').subscribe(state => {
-        this.audiotrack = state.activeTrack;
-        this.volume = state.volume;
-        this.pause = state.pause;
-        this.duration = state.duration;
-        this.currentMoment = state.currentMoment;
-        this.activePlaylist = state.activePlaylist;
-        this.repeatTrack = state.repeat;
-      }
-    );
+  ngOnDestroy(): void {
+    this.audioSubscription.unsubscribe();
+    this.playerSubscription.unsubscribe();
+    this.playlistSubscription.unsubscribe();
   }
 
   ngAfterViewInit(): void {
-    if (!this.audio) {
-      this.audio = new Audio();
-    }
     if (this.activePlaylist) {
       this.configurePlaylist();
     } else {
@@ -88,17 +96,17 @@ export class PlayerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   configureAudio(): void {
     if (this.audiotrack) {
-      this.audio.src = this._apiBase + "/" + this.audiotrack.audioPath;
+      this.audio.setSrc(this._apiBase + "/" + this.audiotrack.audioPath);
     }
 
-    this.audio.volume = this.volume / 100;
+    this.audio.setVolume(this.volume);
 
-    this.audio.onloadedmetadata = () => {
-      this.store.dispatch(PlayerActions.setDuration({duration: Math.ceil(this.audio.duration)}));
+    this.audio.getAudio().onloadedmetadata = () => {
+      this.store.dispatch(PlayerActions.setDuration({duration: Math.ceil(this.audio.getAudio().duration)}));
     }
 
-    this.audio.ontimeupdate = () => {
-      this.store.dispatch(PlayerActions.setCurrentMoment({currentMoment: Math.ceil(this.audio.currentTime)}))
+    this.audio.getAudio().ontimeupdate = () => {
+      this.store.dispatch(PlayerActions.setCurrentMoment({currentMoment: Math.ceil(this.audio.getAudio().currentTime)}))
       if (this.currentMoment === this.duration && this.duration !== 0) {
         if (this.activePlaylist) {
           this.next();
@@ -136,12 +144,12 @@ export class PlayerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeCurrent(currentMoment: number): void {
     this.store.dispatch(PlayerActions.setCurrentMoment({currentMoment}));
-    this.audio.currentTime = currentMoment;
+    this.audio.setCurrentMoment(currentMoment);
   }
 
   changeVolume(volume: number): void {
     this.store.dispatch(PlayerActions.setVolume({volume}));
-    this.audio.volume = volume / 100;
+    this.audio.setVolume(volume);
   }
 
   next(): void {

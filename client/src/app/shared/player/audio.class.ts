@@ -1,25 +1,48 @@
-export class AudioElement {
-  private audio: HTMLAudioElement;
+import {PlayCommand} from "./command/play.command";
+import { SourceCommand } from "./command/source.command";
+import {PauseCommand} from "./command/pause.command";
+import {VolumeCommand} from "./command/volume.command";
+import {TimeCommand} from "./command/time.command";
 
-  private constructor() {
+export class AudioElement {
+  private static _instance: AudioElement;
+  private audio: HTMLAudioElement = new Audio();
+
+  constructor() {}
+
+  getInstance(): AudioElement {
+    if(!AudioElement._instance) {
+      AudioElement._instance = new AudioElement();
+    }
+    return AudioElement._instance;
   }
 
-  getInstance(): HTMLAudioElement {
-    if (this.audio === null) {
-      this.audio = new Audio();
-    }
+  getAudio(): HTMLAudioElement {
     return this.audio;
   }
 
   play(): void {
-    this.audio.play()
+    const play: PlayCommand = new PlayCommand(this.audio);
+    play.execute();
   }
 
   setSrc(src: string): void {
-    this.audio.src = src;
+    const source: SourceCommand = new SourceCommand(this.audio, src);
+    source.execute();
   }
 
   pause(): void {
-    this.audio.pause();
+    const pause: PauseCommand = new PauseCommand(this.audio);
+    pause.execute();
+  }
+
+  setVolume(value: number): void {
+    const volume: VolumeCommand = new VolumeCommand(this.audio, value);
+    volume.execute();
+  }
+
+  setCurrentMoment(value: number): void {
+    const time: TimeCommand = new TimeCommand(this.audio, value);
+    time.execute();
   }
 }
