@@ -11,23 +11,28 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AudiotrackComponent } from './audiotrack/audiotrack.component';
 import {CoreModule} from "../../core/core.module";
 import {MatIconModule} from "@angular/material/icon";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
-  declarations: [
-    AudiotracksComponent,
-    CreateAudiotrackComponent,
-    AudiotrackComponent
-  ],
-    imports: [
-        CommonModule,
-        AudiotracksRoutingModule,
-        MatStepperModule,
-        MatInputModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        CoreModule,
-        MatIconModule
-    ]
+    declarations: [
+        AudiotracksComponent,
+        CreateAudiotrackComponent,
+        AudiotrackComponent
+    ],
+    exports: [
+        AudiotrackComponent
+    ],
+  imports: [
+    CommonModule,
+    AudiotracksRoutingModule,
+    MatStepperModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    CoreModule,
+    MatIconModule,
+    SharedModule
+  ]
 })
 export class AudiotracksModule {
 }

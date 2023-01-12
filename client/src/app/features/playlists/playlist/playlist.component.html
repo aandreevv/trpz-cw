@@ -1,1 +1,15 @@
-<p>playlist works!</p>
+<app-heading>
+  <div class="main">
+    <h2>{{playlist.name}}</h2>
+    <button mat-icon-button (click)="setActive()">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+    <button mat-icon-button (click)="shuffle()">
+      <mat-icon>shuffle</mat-icon>
+    </button>
+  </div>
+  <a routerLink="/playlists">Back</a>
+</app-heading>
+<app-playlist-audio *ngFor="let audiotrack of playlist.audios"
+                    [audiotrack]="audiotrack"
+                    [playlistId]="playlist.id"></app-playlist-audio>

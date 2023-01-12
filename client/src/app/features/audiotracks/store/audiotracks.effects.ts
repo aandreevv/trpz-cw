@@ -15,7 +15,7 @@ export class AudiotracksEffects {
     this.actions$.pipe(
       ofType(AudiotrackActions.fetchAudiotracks),
       switchMap(() => {
-        return this.service.fetchBoards().pipe(
+        return this.service.fetchAudiotracks().pipe(
           map(audiotracks => {
             return AudiotrackActions.setAudiotracks(audiotracks);
           })

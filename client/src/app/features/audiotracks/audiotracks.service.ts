@@ -10,7 +10,7 @@ export class AudiotracksService {
 
   constructor(private http: HttpClient) { }
 
-  fetchBoards() {
+  fetchAudiotracks() {
     return this.http.get<{audiotracks: Audiotrack[]}>(this._apiBase, {
       withCredentials: true
     });

@@ -5,6 +5,7 @@ import { PlayerComponent } from './player/player.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { TrackProgressComponent } from './player/track-progress/track-progress.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 
 
@@ -12,11 +13,13 @@ import { TrackProgressComponent } from './player/track-progress/track-progress.c
     declarations: [
         ClickOutsideDirective,
         PlayerComponent,
-        TrackProgressComponent
+        TrackProgressComponent,
+        DropdownComponent
     ],
     exports: [
         ClickOutsideDirective,
-        PlayerComponent
+        PlayerComponent,
+        DropdownComponent
     ],
   imports: [
     CommonModule,

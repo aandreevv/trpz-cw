@@ -3,6 +3,7 @@
 .container {
   display: flex;
   align-items: center;
+  position: relative;
   justify-content: space-between;
   width: 100%;
   padding: 1em;
@@ -14,12 +15,13 @@
   .main {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    width: 30%;
+    justify-content: space-between;
+    width: 40%;
     height: 100%;
 
     .button-wrap {
-      width: 10%;
+      width: 15%;
+      text-align: center;
     }
 
     img {
@@ -29,6 +31,17 @@
     h3 {
       font-weight: bold;
       margin: 0;
+      width: 55%;
     }
   }
+
+  app-dropdown {
+    position: absolute;
+    right: 0;
+    top: 6em;
+  }
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.1);
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container {{isPlaylistsOpen ? 'active' : ''}}">
   <div class="main">
     <div class="button-wrap">
       <button mat-icon-button (click)="setActive()">
@@ -9,6 +9,17 @@
     <h3>{{audiotrack.author}} - {{audiotrack.name}}</h3>
   </div>
   <div class="operations">
-
+    <button mat-icon-button (click)="isPlaylistsOpen = true">
+      <mat-icon>playlist_add</mat-icon>
+    </button>
   </div>
+
+  <app-dropdown *ngIf="isPlaylistsOpen" (onClickOutside)="isPlaylistsOpen = false">
+    <div class="info">
+      <p>Add to playlist:</p>
+    </div>
+    <button *ngFor="let playlist of playlists" (click)="addToPlaylist(playlist.id)">{{playlist.name}}</button>
+  </app-dropdown>
 </div>
+
+

@@ -1,1 +1,5 @@
-<p>playlists works!</p>
+<app-heading>
+  <h2>My Playlists</h2>
+  <a routerLink="./create">Create new</a>
+</app-heading>
+<app-playlist-list-item *ngFor="let playlist of playlists" [playlist]="playlist"></app-playlist-list-item>

@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<div class="dropdown" *ngIf="isDropdownOpen && user" appClickOutside (clickedOutside)="isDropdownOpen = false">
+<app-dropdown *ngIf="isDropdownOpen && user" (onClickOutside)="isDropdownOpen = false">
   <div class="info">
     <div class="text-wrap">
       <p class="username">{{user.username}}</p>
@@ -26,4 +26,5 @@
   >
     Log out
   </button>
-</div>
+</app-dropdown>
+

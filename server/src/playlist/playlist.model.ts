@@ -1,16 +1,30 @@
-import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
-import { User } from "../user/user.model";
-import { Audio } from "../audio/audio.model";
-import { PlaylistAudios } from "./playlist-audios.model";
+import {
+  BelongsTo,
+  BelongsToMany,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { User } from '../user/user.model';
+import { Audio } from '../audio/audio.model';
+import { PlaylistAudios } from './playlist-audios.model';
 
 export interface IPlaylistCreationAttributes {
   name: string;
   userId: number;
+  imagePath: string;
 }
 
-@Table({ tableName: "playlists" })
+@Table({ tableName: 'playlists' })
 export class Playlist extends Model<Playlist, IPlaylistCreationAttributes> {
-  @Column({ type: DataType.INTEGER, unique: true, primaryKey: true, autoIncrement: true })
+  @Column({
+    type: DataType.INTEGER,
+    unique: true,
+    primaryKey: true,
+    autoIncrement: true,
+  })
   id: number;
 
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
@@ -27,5 +41,5 @@ export class Playlist extends Model<Playlist, IPlaylistCreationAttributes> {
   user: User;
 
   @BelongsToMany(() => Audio, () => PlaylistAudios)
-  audios: Array<Audio>
+  audios: Array<Audio>;
 }

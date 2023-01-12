@@ -1,0 +1,41 @@
+<app-heading>
+  <h2>Create playlist</h2>
+  <a routerLink="/playlists">Back</a>
+</app-heading>
+<mat-stepper linear>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill info about playlist</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Playlist name</mat-label>
+        <input matInput placeholder="Name" formControlName="name" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Upload image">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>{{imageFile ? imageFile.name : "Choose your file"}}</mat-label>
+        <input matInput placeholder="Your file" (click)="imageInput.click()" readonly>
+        <input #imageInput type="file" hidden
+               formControlName="image" (change)="onImageSelected($event)" required
+               accept="image/*"
+        />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext (click)="submitForm()">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button (click)="onRedirect()">To Playlists Page</button>
+    </div>
+  </mat-step>
+</mat-stepper>

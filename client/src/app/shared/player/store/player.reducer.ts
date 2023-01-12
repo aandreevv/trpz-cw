@@ -1,6 +1,7 @@
 import {Audiotrack} from "../../../features/audiotracks/audiotrack.model";
 import {Action, createReducer, on} from "@ngrx/store";
 import * as PlayerActions from "./player.actions";
+import {Playlist} from "../../../features/playlists/playlist.model";
 
 export interface State {
   activeTrack: null | Audiotrack;
@@ -8,14 +9,18 @@ export interface State {
   duration: number;
   pause: boolean;
   currentMoment: number;
+  activePlaylist: null | Playlist,
+  repeat: null | Audiotrack
 }
 
 const initialState: State = {
   activeTrack: null,
   volume: 50,
   duration: 0,
-  pause: true,
-  currentMoment: 0
+  pause: false,
+  currentMoment: 0,
+  activePlaylist: null,
+  repeat: null
 }
 
 const _playerReducer = createReducer(
@@ -58,9 +63,22 @@ const _playerReducer = createReducer(
       currentMoment: action.currentMoment
     }
   }),
-  on(PlayerActions.reset, state => {
+  on(PlayerActions.reset, () => {
     return {
       ...initialState
+    }
+  }),
+  on(PlayerActions.setActivePlaylist, (state, action) => {
+    return {
+      ...state,
+      activePlaylist: action.playlist,
+      repeat: null
+    }
+  }),
+  on(PlayerActions.repeat, (state, action) => {
+    return {
+      ...state,
+      repeat: action.audiotrack
     }
   })
 )

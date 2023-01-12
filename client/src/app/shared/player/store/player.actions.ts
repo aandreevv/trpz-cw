@@ -1,5 +1,6 @@
 import {createAction, props} from "@ngrx/store";
 import {Audiotrack} from "../../../features/audiotracks/audiotrack.model";
+import {Playlist} from "../../../features/playlists/playlist.model";
 
 export const play = createAction(
   "[Player] Play"
@@ -31,4 +32,14 @@ export const setCurrentMoment = createAction(
 
 export const reset = createAction(
   "[Player] Reset"
+)
+
+export const setActivePlaylist = createAction(
+  "[Player] Set Active Playlist",
+  props<{playlist: Playlist}>()
+)
+
+export const repeat = createAction(
+  "[Player] Repeat Audiotrack",
+  props<{audiotrack: Audiotrack}>()
 )

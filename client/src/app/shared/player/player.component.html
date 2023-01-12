@@ -1,6 +1,16 @@
 <div class="container">
+
+
   <button mat-fab (click)="switchPlay()">
     <mat-icon>{{pause ? "play_arrow" : "pause"}}</mat-icon>
+  </button>
+
+  <button mat-icon-button (click)="next()" class="{{!this.audiotracksIterator?.hasNext() ? 'inactive' : ''}}">
+    <mat-icon>skip_next</mat-icon>
+  </button>
+
+  <button mat-icon-button (click)="repeat()" class="{{this.repeatTrack ? 'active' : ''}}">
+    <mat-icon>repeat</mat-icon>
   </button>
 
   <div class="audio">
